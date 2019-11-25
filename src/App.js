@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./styles/styles.css";
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
   const [wordCount, setWordCount] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(gameSeconds);
   const [countingDown, setCountingDown] = useState(false);
+
+  const inputRef = useRef(null);
 
   const handleChange = event => {
     const { value } = event.target;
@@ -30,7 +32,8 @@ function App() {
 
   const startCountDown = status => {
     setCountingDown(!status);
-    document.getElementById("textarea").focus();
+    // document.getElementById("textarea").focus();
+    inputRef.current.focus();
   };
 
   useEffect(() => {
@@ -73,6 +76,7 @@ function App() {
         name="textarea"
         value={text}
         onChange={handleChange}
+        ref={inputRef}
       />
       <h4>Time Remaining: {timeRemaining}</h4>
       <button
